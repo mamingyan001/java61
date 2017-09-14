@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 导入dtd约束 -->
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<!-- session工厂，他使用来创建session的，他里面维护了一系列的信息
+			a.数据库信息
+			b.hibernate的配置信息
+			c.映射文件的位置
+	 -->
+	<session-factory>
+	<!-- 
+		#hibernate.dialect org.hibernate.dialect.MySQLDialect
+		#hibernate.connection.driver_class com.mysql.jdbc.Driver
+		#hibernate.connection.url jdbc:mysql:///test
+		#hibernate.connection.username gavin
+		#hibernate.connection.password
+	 -->
+	 	<!-- a.数据库信息 --> 
+		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="hibernate.connection.url">jdbc:mysql:///anli</property>
+		<property name="hibernate.connection.username">root</property>
+		<property name="hibernate.connection.password">root</property>
+		<!-- 方言
+			mysql：select * from 表 limit ?,?     limit 只能使用在mysql当中，所以他就叫做mysql的方言
+		 -->
+		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		
+		<!-- b.hibernate的配置信息 -->
+		<!-- 
+			配置hibernate帮助我们自动生成数据库表
+			#hibernate.hbm2ddl.auto 
+				create-drop :在程序启动的时候如果有表删除表再创建，程序结束删除表
+				create  ：如果有表删除表再创建，没有表直接创建
+				update	：如果有表，映射发生变化更新表结构，如果没表，创建表
+				validate：不会创建表，映射发生变化会抛出异常
+		 -->
+		 <property name="hibernate.hbm2ddl.auto">update</property>
+		 
+		 <!-- 显示sql 
+		 	hibernate.show_sql 
+		 		true|false
+		 -->
+		<property name="hibernate.show_sql">true</property>
+		
+		<!-- 格式化sql
+			hibernate.format_sql
+				true|false
+		 -->
+		 <property name="hibernate.format_sql">true</property>
+		 
+		 <!-- 设置事务的隔离级别 
+			read uncommmit     ：什么也解决不了                  		1
+			read commit		   ：只能解决脏读					2
+			repeatable read    ：解决脏读和不可重复读			4
+			serialzable		   ：解决所有，但是不用			8
+			默认使用数据库的隔离级别 ，mysql ：4
+		-->
+		<property name="hibernate.connection.isolation">4</property>
+		
+		 <!-- 获取与当前线程绑定的session对象 
+		 
+		 -->
+		 <property name="hibernate.current_session_context_class">thread</property>
+		
+		<!--c.映射文件的位置 -->
+		<mapping resource="com/itheima/entity/LinkMan.hbm.xml"/>
+		
+		
+		
+		
+	</session-factory>
+</hibernate-configuration>
